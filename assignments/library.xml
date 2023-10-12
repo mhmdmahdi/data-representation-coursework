@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+    <technicalbooks ISBN="123456">
+        <ISBN>123456</ISBN>
+        <title>Shoe Dog</title>
+        <author>Phil Knight</author>
+    </technicalbooks>
+
+    <technicalbooks ISBN="67890">
+        <title>Can't Hurt Me</title>
+        <author>David Goggins</author>
+    </technicalbooks>
+
+    <cookerybooks ISBN="102030405060">
+        <title>Cook Off</title>
+        <author>Gordon Ramsey</author>
+    </cookerybooks>
+
+    <cookerybooks ISBN="6070809000">
+        <title>Cook With Us</title>
+        <author>Anthony Bourdain</author>
+    </cookerybooks>
+</library>
