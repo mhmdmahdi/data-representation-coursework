@@ -10,7 +10,7 @@
 <body>
     <script>  
         function createExercise(exercise, callback){
-            //console.log(JSON.stringify(book));
+            //console.log(JSON.stringify(exercise));
             $.ajax({
                 "url": "http://mhmdmahdi1.pythonanywhere.com/post",
                 "method":"POST",
@@ -24,14 +24,13 @@
                 "error":function(xhr,status,error){
                     console.log("error: "+status+" msg:"+error);
                 }   
-            })
-
+            });
         }
 
         function processCreateresponse(result){
             console.log(result)
         }
-        book = {"Exercise":"Squats","Sets":5,"Reps":5}
+        exercise = {"Exercise":"Squats","Sets":5,"Reps":5}
         createExercise(exercise,processCreateresponse)
     </script>
 </body>

@@ -11,7 +11,7 @@ def get_all_data():
 
 @app.route('/post', methods=['POST'])
 def post():
-    # Your logic to fetch and return da`ta
+    # Your logic to fetch and return data
     data = {"example": "data"}
     return jsonify(data)
 
