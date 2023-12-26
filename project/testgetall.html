@@ -15,14 +15,19 @@
                 "method": "GET",
                 "dataType": "JSON",
                 "success": function (result) {
-                    console.log(result);
+                    //console.log(result);
+                    callback(result)
                 },
                 "error": function (xhr, status, error) {
                     console.log("error: " + status + " msg:" + error);
                 }
             });
         }
-        getAll()
+        function processGetAll(result){
+            console.log("in process")
+            console.log(result)
+        }
+        getAll(processGetAll)
     </script>
 </body>
 
