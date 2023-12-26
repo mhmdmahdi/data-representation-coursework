@@ -6,13 +6,13 @@ app = Flask(__name__)
 @app.route('/get_all_data', methods=['GET'])
 def get_all_data():
     # Your logic to fetch and return data
-    data = {"example": "data"}
+    data = {"example1": "data"}
     return jsonify(data)
 
 @app.route('/post', methods=['GET', 'POST'])
 def post():
     # Your logic to fetch and return data
-    data = {"example": "data"}
+    data = {"example2": "data"}
     return jsonify(data)
 
 @app.route('/')
