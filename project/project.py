@@ -9,6 +9,12 @@ def get_all_data():
     data = {"example": "data"}
     return jsonify(data)
 
+@app.route('/post', methods=['POST'])
+def post():
+    # Your logic to fetch and return da`ta
+    data = {"example": "data"}
+    return jsonify(data)
+
 @app.route('/')
 def index():
     return render_template('personalbest.html')
