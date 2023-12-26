@@ -9,7 +9,7 @@ app = Flask(__name__)
 def get_all_data():
     # Your logic to fetch and return data
     data = {"example": "data"}
-    return jsonify(data)
+    return "Hello World!"
 
 @app.route('/')
 def index():
