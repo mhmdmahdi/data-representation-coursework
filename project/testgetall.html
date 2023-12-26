@@ -11,9 +11,8 @@
     <script>
         function getAll() {
             $.ajax({
-                "url": "mhmdmahdi1.pythonanywhere.com",
+                "url": "http://mhmdmahdi1.pythonanywhere.com/get_all_data",
                 "method": "GET",
-                "data": "",
                 "dataType": "JSON",
                 "success": function (result) {
                     console.log(result);
@@ -25,5 +24,6 @@
         }
         getAll()
     </script>
+</body>
 
 </html>
