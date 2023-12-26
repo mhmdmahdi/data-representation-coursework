@@ -9,7 +9,7 @@ def get_all_data():
     data = {"example": "data"}
     return jsonify(data)
 
-@app.route('/post', methods=['POST'])
+@app.route('/post', methods=['GET', 'POST'])
 def post():
     # Your logic to fetch and return data
     data = {"example": "data"}
