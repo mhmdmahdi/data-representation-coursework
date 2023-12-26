@@ -1,8 +1,6 @@
 from flask import Flask, jsonify
-from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Your endpoint for fetching all data
 @app.route('/get_all_data', methods=['GET'])
