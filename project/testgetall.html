@@ -1,9 +1,7 @@
 <html>
 
 <head>
-    <title>
-        test get all
-    </title>
+    <title>test get all</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 
@@ -11,10 +9,13 @@
     <script>
         function getAll() {
             $.ajax({
-                "url": "http://mhmdmahdi1.pythonanywhere.com/get_all_data",
+                "url": "https://mhmdmahdi1.pythonanywhere.com/",
                 "method": "GET",
-                "data": "",
                 "dataType": "JSON",
+                "xhrFields": {
+                    "withCredentials": true
+                },
+                "crossDomain": true,
                 "success": function (result) {
                     console.log(result);
                 },
