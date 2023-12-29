@@ -9,10 +9,11 @@
 
 <body>
     <script>
-        function getAll() {
+        function getAll(callback) {
             $.ajax({
                 "url": "http://mhmdmahdi1.pythonanywhere.com/get_all_data",
                 "method": "GET",
+                "data": "",
                 "dataType": "JSON",
                 "success": function (result) {
                     //console.log(result);

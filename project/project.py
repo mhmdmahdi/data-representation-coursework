@@ -28,6 +28,13 @@ def post():
     data = {"example3": "data3"}
     return jsonify(data)
 
+# Endpoint for deleting
+@app.route('/delete/<int:id>', methods=['DELETE'])
+def delete(id):
+    # Your logic to fetch and return data
+    data = {"message": f"Item {id} deleted successfully"}
+    return jsonify(data), 200
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5001, debug=True)
 

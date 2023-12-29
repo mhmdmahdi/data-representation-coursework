@@ -12,7 +12,7 @@
         function createExercise(exercise, callback){
             //console.log(JSON.stringify(exercise));
             $.ajax({
-                "url": "http://mhmdmahdi1.pythonanywhere.com/put",
+                "url": "http://mhmdmahdi1.pythonanywhere.com/" + encodeURI(exercise.id),
                 "method":"PUT",
                 "data":JSON.stringify(exercise),
                 "dataType": "JSON",
@@ -31,7 +31,7 @@
             console.log(result)
         }
         exercise = {id: 1, "Reps":5}
-        updateExercise(exercise,processUpdateresponse)
+        updateExercise(exercise, processUpdateresponse)
     </script>
 </body>
 
