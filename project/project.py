@@ -16,7 +16,7 @@ def get_all_data():
 
 # Endpoint for creating
 @app.route('/post', methods=['POST'])
-def post():
+def create():
     # Your logic to fetch and return data
     data = {"example2": "data2"}
     return jsonify(data)
