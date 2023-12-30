@@ -2,6 +2,7 @@ import logging
 from flask import Flask, jsonify, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from dbconfig import mysql
+from sqlalchemy.exc import SQLAlchemyError
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql://{mysql['user']}:{mysql['password']}@{mysql['host']}/{mysql['database']}"
@@ -62,9 +63,13 @@ def update(id):
         db.session.commit()
         app.logger.info('Exercise updated successfully')
         return jsonify({"message": "Exercise updated successfully"})
-    except Exception as e:
+    except SQLAlchemyError as e:
+        db.session.rollback()  # Roll back the transaction on error
         app.logger.error(f'Error updating exercise: {str(e)}')
-        return jsonify({"error": "Error updating exercise"}), 500
+        return jsonify({"error": f"Error updating exercise: {str(e)}"}), 500
+    except Exception as e:
+        app.logger.error(f'Unhandled error updating exercise: {str(e)}')
+        return jsonify({"error": "Unhandled error updating exercise"}), 500
 
 @app.route('/delete/<int:id>', methods=['DELETE'])
 def delete(id):
