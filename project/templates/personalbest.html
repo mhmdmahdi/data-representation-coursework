@@ -64,6 +64,7 @@
             const baseUrl = "https://mhmdmahdi1.pythonanywhere.com/";
 
             function showCreate() {
+                console.log("showCreate function is called");
                 document.getElementById('button-showCreate').style.display="none";
                 document.getElementById('exerciseTable').style.display="none";
                 document.getElementById('createUpdateForm').style.display="block";
@@ -98,6 +99,7 @@
             }
 
             function doCreate() {
+                console.log("doCreate function is called");
                 var exercise = getexerciseFromForm();
                 $.ajax({
                     url: baseUrl,

@@ -1,3 +1,4 @@
+import logging
 from flask import Flask, jsonify, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from dbconfig import mysql
@@ -5,6 +6,7 @@ from dbconfig import mysql
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql://{mysql['user']}:{mysql['password']}@{mysql['host']}/{mysql['database']}"
 db = SQLAlchemy(app)
+logging.basicConfig(level=logging.DEBUG)
 
 class Exercise(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -14,44 +16,72 @@ class Exercise(db.Model):
 
 @app.route('/')
 def index():
+    app.logger.info('Endpoint: /')
     return render_template('personalbest.html')
 
-# Endpoint for fetching all data
 @app.route('/get_all_data', methods=['GET'])
 def get_all_data():
-    # Your logic to fetch and return data
+    app.logger.info('Endpoint: /get_all_data')
     exercises = Exercise.query.all()
     data = [{"id": exercise.id, "Exercise": exercise.Exercise, "Sets": exercise.Sets, "Reps": exercise.Reps} for exercise in exercises]
     return jsonify(data)
 
-# Endpoint for creating
 @app.route('/', methods=['POST'])
 def create():
-    # Your logic to fetch and return data
-    data = request.get_json()
-    new_exercise = Exercise(Exercise=data['Exercise'], Sets=data['Sets'], Reps=data['Reps'])
-    db.session.add(new_exercise)
-    db.session.commit()
-    return jsonify({"message": "Exercise created successfully"})
+    app.logger.info('Endpoint: / (POST)')
+    try:
+        data = request.get_json()
+        new_exercise = Exercise(Exercise=data['Exercise'], Sets=data['Sets'], Reps=data['Reps'])
+        db.session.add(new_exercise)
+        db.session.commit()
+        app.logger.info('Exercise created successfully')
+        return jsonify({"message": "Exercise created successfully"})
+    except Exception as e:
+        app.logger.error(f'Error creating exercise: {str(e)}')
+        return jsonify({"error": "Error creating exercise"}), 500
 
-# Endpoint for updating
 @app.route('/<int:id>', methods=['PUT'])
 def update(id):
-    data = request.get_json()
-    exercise = Exercise.query.get(id)
-    exercise.Exercise = data['Exercise']
-    exercise.Sets = data['Sets']
-    exercise.Reps = data['Reps']
-    db.session.commit()
-    return jsonify({"message": "Exercise updated successfully"})
+    app.logger.info(f'Endpoint: /{id} (PUT)')
+    try:
+        data = request.get_json()
+        exercise = Exercise.query.get(id)
 
-# Endpoint for deleting
+        if exercise is None:
+            return jsonify({"error": f"Exercise with ID {id} not found"}), 404
+
+        if 'Exercise' in data:
+            exercise.Exercise = data['Exercise']
+
+        if 'Sets' in data:
+            exercise.Sets = data['Sets']
+
+        if 'Reps' in data:
+            exercise.Reps = data['Reps']
+
+        db.session.commit()
+        app.logger.info('Exercise updated successfully')
+        return jsonify({"message": "Exercise updated successfully"})
+    except Exception as e:
+        app.logger.error(f'Error updating exercise: {str(e)}')
+        return jsonify({"error": "Error updating exercise"}), 500
+
 @app.route('/delete/<int:id>', methods=['DELETE'])
 def delete(id):
-    exercise = Exercise.query.get(id)
-    db.session.delete(exercise)
-    db.session.commit()
-    return jsonify({"message": f"Exercise {id} deleted successfully"})
+    app.logger.info(f'Endpoint: /delete/{id} (DELETE)')
+    try:
+        exercise = Exercise.query.get(id)
+
+        if exercise is None:
+            return jsonify({"error": f"Exercise with ID {id} not found"}), 404
+
+        db.session.delete(exercise)
+        db.session.commit()
+        app.logger.info(f'Exercise {id} deleted successfully')
+        return jsonify({"message": f"Exercise {id} deleted successfully"})
+    except Exception as e:
+        app.logger.error(f'Error deleting exercise: {str(e)}')
+        return jsonify({"error": "Error deleting exercise"}), 500
 
 if __name__ == "__main__":
     with app.app_context():
