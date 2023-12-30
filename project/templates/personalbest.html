@@ -59,6 +59,9 @@
         </div>
 
         <script>
+
+            const baseUrl = "http://mhmdmahdi1.pythonanywhere.com/";
+
             function showCreate() {
                 document.getElementById('button-showCreate').style.display="none";
                 document.getElementById('exerciseTable').style.display="none";
@@ -95,34 +98,63 @@
 
             function doCreate() {
                 var exercise = getexerciseFromForm();
-                console.log(exercise);
-                addexerciseToTable(exercise);
-
-                clearForm();
-                showViewAll();
-
-                console.log("doCreate")
-                console.log("exercise is " + JSON.stringify(exercise))
+                $.ajax({
+                    url: baseUrl,
+                    method: "POST",
+                    data: JSON.stringify(exercise),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "JSON",
+                    success: function (result) {
+                        console.log(result);
+                        addexerciseToTable(exercise);
+                        clearForm();
+                        showViewAll();
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error creating exercise: " + status + " msg:" + error);
+                    }
+                });
             }
 
             function doUpdate() {
                 var exercise = getexerciseFromForm();
-                var rowElement = document.getElementById(exercise.id);
-                setexerciseInRow(rowElement, exercise);
-                clearForm();
-                showViewAll();
-
-                console.log("doUpdate")
-                console.log("exercise is " + JSON.stringify(exercise))
+                $.ajax({
+                    url: baseUrl + encodeURI(exercise.id),
+                    method: "PUT",
+                    data: JSON.stringify(exercise),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "JSON",
+                    success: function (result) {
+                        console.log(result);
+                        var rowElement = document.getElementById(exercise.id);
+                        setexerciseInRow(rowElement, exercise);
+                        clearForm();
+                        showViewAll();
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error updating exercise: " + status + " msg:" + error);
+                    }
+                });
             }
 
             function doDelete(element) {
                 var tableElement = document.getElementById('exerciseTable');
-                var index = element.parentNode.parentNode.rowIndex;
-                tableElement.deleteRow(index);
+                var rowElement = element.parentNode.parentNode;
+                var exerciseId = rowElement.id;
 
-                console.log("doDelete")
-                console.log("exercise is " + JSON.stringify(tableElement))
+                $.ajax({
+                    url: baseUrl + "delete/" + exerciseId,
+                    method: "DELETE",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "JSON",
+                    success: function (result) {
+                        console.log(result);
+                        tableElement.deleteRow(rowElement.rowIndex);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error deleting exercise: " + status + " msg:" + error);
+                    }
+                });
             }
 
             function addexerciseToTable(exercise) {
