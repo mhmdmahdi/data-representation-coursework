@@ -54,7 +54,6 @@ def delete(id):
     return jsonify({"message": f"Exercise {id} deleted successfully"})
 
 if __name__ == "__main__":
-    db.create_all()
-    app.run(host='0.0.0.0', port=5001, debug=True)
-
-# Continue from 4. Update JavaScript AJAX Requests:
+    with app.app_context():
+        db.create_all()
+    app.run(host='mhmdmahdi1.pythonanywhere.com', port=5000, debug=True)
