@@ -216,7 +216,7 @@
         function addexerciseToTable(exercise) {
             var tableElement = document.getElementById('exerciseTable');
             var rowElement = tableElement.insertRow(-1);
-            rowElement.setAttribute('id', exercise.id);
+            rowElement.setAttribute('id', exercise.id); // Set the id attribute to match the exercise ID
 
             var cell1 = rowElement.insertCell(0);
             cell1.innerHTML = exercise.id;
