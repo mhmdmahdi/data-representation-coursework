@@ -254,6 +254,7 @@
                 var setsInput = form.querySelector('input[name="Sets"]');
                 var exerciseInput = form.querySelector('input[name="Exercise"]');
                 var repsInput = form.querySelector('input[name="Reps"]');
+                var weightInput = form.querySelector('input[name="Weight"]');
 
                 if (idInput) {
                     // idInput.disabled = false; // Remove this line if you decide to keep the ID input enabled
@@ -271,6 +272,10 @@
                 if (repsInput) {
                     repsInput.value = "";
                 }
+
+                if (weightInput) {
+                    weightInput.value = "";
+                }
             }
 
             console.log("clearForm");
@@ -283,6 +288,7 @@
             exercise.Exercise = form.querySelector('input[name="Exercise"]').value;
             exercise.Sets = form.querySelector('input[name="Sets"]').value;
             exercise.Reps = form.querySelector('input[name="Reps"]').value;
+            exercise.Weight = form.querySelector('input[name="Weight"]').value;
             console.log(JSON.stringify(exercise));
             return exercise;
         }
@@ -293,6 +299,7 @@
             exercise.Exercise = rowElement.cells[1].textContent;
             exercise.Sets = rowElement.cells[2].textContent;
             exercise.Reps = rowElement.cells[3].textContent;
+            exercise.Weight = rowElement.cells[4].textContent;
             return exercise;
 
             console.log("getexerciseFromRow")
@@ -305,6 +312,7 @@
             form.querySelector('input[name="Exercise"]').value = exercise.Exercise;
             form.querySelector('input[name="Sets"]').value = exercise.Sets;
             form.querySelector('input[name="Reps"]').value = exercise.Reps;
+            form.querySelector('input[name="Weight"]').value = exercise.Weight;
 
             console.log("populateFormWithexercise");
             console.log("exercise is " + JSON.stringify(exercise));
@@ -315,6 +323,7 @@
             rowElement.cells[1].textContent = exercise.Exercise;
             rowElement.cells[2].textContent = exercise.Sets;
             rowElement.cells[3].textContent = exercise.Reps;
+            rowElement.cells[4].textContent = exercise.Weight;
 
             console.log("setexerciseInRow")
         }
