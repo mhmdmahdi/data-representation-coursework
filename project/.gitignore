@@ -1,3 +1,5 @@
 # Environments
 .venv
 venv/
+
+dbconfig.py
