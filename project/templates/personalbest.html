@@ -25,14 +25,6 @@
                 <th>Update</th>
                 <th>Delete</th>
             </tr>
-            <tr id="1">
-                <td>1</td>
-                <td>Chest Press</td>
-                <td>4</td>
-                <td>8</td>
-                <td><button onclick="showUpdate(this)">Update</button></td>
-                <td><button onclick="doDelete(this)">delete</button></td>
-            </tr>
         </table>
         </div>
 
@@ -47,10 +39,6 @@
             Exercise <input type="text" name="Exercise"><br/>
             Sets <input type="number" name="Sets"><br/>
             Reps <input type="number" name="Reps"><br/>
-            Just to show select <select name="status">
-                <option value="instock">in stock</option>
-                <option value="outstock">out of stock</option>
-                <option value="other">out of print</option>
             </select><br/>
 
             <span id="createLabel" style="display:none">Create a exercise</span>
@@ -62,6 +50,55 @@
         <script>
 
             const baseUrl = "https://mhmdmahdi1.pythonanywhere.com/";
+
+            // Function to fetch and display data from the server
+            function fetchDataAndDisplay() {
+                $.ajax({
+                    url: baseUrl + "get_all_data",
+                    method: "GET",
+                    dataType: "JSON",
+                    success: function (data) {
+                        displayDataInTable(data);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error fetching data: " + status + " msg:" + error);
+                    }
+                });
+            }
+
+            // Function to display data in the table
+            function displayDataInTable(data) {
+                var tableElement = document.getElementById('exerciseTable');
+                // Clear existing rows
+                tableElement.innerHTML = "";
+                
+                // Add header row
+                var headerRow = tableElement.insertRow(0);
+                headerRow.innerHTML = "<th>id</th><th>Exercise</th><th>Sets</th><th>Reps</th><th>Update</th><th>Delete</th>";
+
+                // Add data rows
+                for (var i = 0; i < data.length; i++) {
+                    var exercise = data[i];
+                    var rowElement = tableElement.insertRow(-1);
+                    rowElement.setAttribute('id', exercise.id);
+
+                    for (var key in exercise) {
+                        var cell = rowElement.insertCell();
+                        cell.innerHTML = exercise[key];
+                    }
+
+                    var updateCell = rowElement.insertCell();
+                    updateCell.innerHTML = '<button onclick="showUpdate(this)">Update</button>';
+
+                    var deleteCell = rowElement.insertCell();
+                    deleteCell.innerHTML = '<button onclick="doDelete(this)">Delete</button>';
+                }
+            }
+
+            // Call the fetch function when the page loads
+            window.onload = function() {
+                fetchDataAndDisplay();
+            };
 
             function showCreate() {
                 console.log("showCreate function is called");
