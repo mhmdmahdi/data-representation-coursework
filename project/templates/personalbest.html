@@ -65,15 +65,14 @@
             });
         }
 
-        // Function to display data in the table
         function displayDataInTable(data) {
             var tableElement = document.getElementById('exerciseTable');
             // Clear existing rows
             tableElement.innerHTML = "";
-            
+
             // Add header row
             var headerRow = tableElement.insertRow(0);
-            headerRow.innerHTML = "<th>id</th><th>Exercise</th><th>Sets</th><th>Reps</th><th>Update</th><th>Delete</th>";
+            headerRow.innerHTML = "<th>id</th><th>Exercise</th><th>Sets</th><th>Reps</th><th>Weight (kg)</th><th>Update</th><th>Delete</th>";
 
             // Add data rows
             for (var i = 0; i < data.length; i++) {
@@ -93,8 +92,8 @@
                 var repsCell = rowElement.insertCell();
                 repsCell.innerHTML = exercise.Reps;
 
-                var weightCell = rowElement.insertCell(); 
-                weightCell.innerHTML = exercise.Weight; 
+                var weightCell = rowElement.insertCell();
+                weightCell.innerHTML = exercise.Weight;
 
                 var updateCell = rowElement.insertCell();
                 updateCell.innerHTML = '<button onclick="showUpdate(this)">Update</button>';
@@ -102,6 +101,9 @@
                 var deleteCell = rowElement.insertCell();
                 deleteCell.innerHTML = '<button onclick="doDelete(this)">Delete</button>';
             }
+
+            // Log the data for inspection
+            console.log(data);
         }
 
         // Call the fetch function when the page loads
