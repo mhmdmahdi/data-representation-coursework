@@ -187,13 +187,13 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "JSON",
                 success: function (result) {
-                    console.log(result);
+                    console.log("Update success. Result:", result);
                     setexerciseInRow(rowElement, exercise);
                     clearForm();
                     showViewAll();
                 },
                 error: function (xhr, status, error) {
-                    console.log("Error updating exercise: " + status + " msg:" + error);
+                    console.log("Error updating exercise. Status:", status, "Error:", error);
                 }
             });
         }
