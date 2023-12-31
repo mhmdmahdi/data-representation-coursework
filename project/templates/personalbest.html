@@ -163,26 +163,25 @@
 
         function doUpdate() {
             var exercise = getexerciseFromForm();
-
-            // Fetch the exercise ID from the database table (assuming it's in the first cell of the row)
-            var exerciseId = document.getElementById(exercise.id).cells[0].textContent;
-
-            if (!exerciseId) {
+            if (!exercise.id) {
                 console.error("Exercise ID is undefined. Unable to update.");
                 return;
             }
 
-            exercise.id = exerciseId; // Set the correct exercise ID
+            var rowElement = document.getElementById(exercise.id);
+            if (!rowElement) {
+                console.error("Row element not found. ID: " + exercise.id);
+                return;
+            }
 
             $.ajax({
-                url: baseUrl + exerciseId,
+                url: baseUrl + exercise.id,
                 method: "PUT",
                 data: JSON.stringify(exercise),
                 contentType: "application/json; charset=utf-8",
                 dataType: "JSON",
                 success: function (result) {
                     console.log(result);
-                    var rowElement = document.getElementById(exerciseId);
                     setexerciseInRow(rowElement, exercise);
                     clearForm();
                     showViewAll();
