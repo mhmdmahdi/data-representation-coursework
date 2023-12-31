@@ -39,7 +39,7 @@
         Exercise <input type="text" name="Exercise"><br/>
         Sets <input type="number" name="Sets"><br/>
         Reps <input type="number" name="Reps"><br/>
-        Weight (kg) <input type="number" name="Weight"><br />
+        Weight (kg) <input type="number" name="Weight"><br/>
     
         <span id="createLabel" style="display:none">Create a exercise</span>
         <span id="updateLabel" style="display:none">update</span>         
@@ -234,9 +234,12 @@
             cell4.innerHTML = exercise.Reps;
 
             var cell5 = rowElement.insertCell(4);
+            cell5.innerHTML = exercise.Weight;
+
+            var cell5 = rowElement.insertCell(5);
             cell5.innerHTML = '<button onclick="showUpdate(this)">Update</button>';
 
-            var cell6 = rowElement.insertCell(5);
+            var cell6 = rowElement.insertCell(6);
             cell6.innerHTML = '<button onclick="doDelete(this)">Delete</button>';
 
             console.log("addexerciseToTable");
