@@ -163,23 +163,28 @@
 
         function doUpdate() {
             var exercise = getexerciseFromForm();
-            $.ajax({
-                url: baseUrl + encodeURI(exercise.id),
-                method: "PUT",
-                data: JSON.stringify(exercise),
-                contentType: "application/json; charset=utf-8",
-                dataType: "JSON",
-                success: function (result) {
-                    console.log(result);
-                    var rowElement = document.getElementById(exercise.id);
-                    setexerciseInRow(rowElement, exercise);
-                    clearForm();
-                    showViewAll();
-                },
-                error: function (xhr, status, error) {
-                    console.log("Error updating exercise: " + status + " msg:" + error);
-                }
-            });
+            // Ensure that exercise.id is defined before making the PUT request
+            if (exercise.id) {
+                $.ajax({
+                    url: baseUrl + encodeURI(exercise.id),
+                    method: "PUT",
+                    data: JSON.stringify(exercise),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "JSON",
+                    success: function (result) {
+                        console.log(result);
+                        var rowElement = document.getElementById(exercise.id);
+                        setexerciseInRow(rowElement, exercise);
+                        clearForm();
+                        showViewAll();
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error updating exercise: " + status + " msg:" + error);
+                    }
+                });
+            } else {
+                console.log("Exercise ID is undefined. Unable to update.");
+            }
         }
 
         function doDelete(element) {
