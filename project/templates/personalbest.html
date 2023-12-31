@@ -272,13 +272,12 @@
         function getexerciseFromForm() {
             var form = document.getElementById('createUpdateForm');
             var exercise = {};
+            exercise.id = form.querySelector('input[name="id"]').value;
             exercise.Exercise = form.querySelector('input[name="Exercise"]').value;
             exercise.Sets = form.querySelector('input[name="Sets"]').value;
             exercise.Reps = form.querySelector('input[name="Reps"]').value;
             console.log(JSON.stringify(exercise));
             return exercise;
-
-            console.log("getexerciseFromForm")
         }
 
         function getexerciseFromRow(rowElement) {
