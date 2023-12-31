@@ -10,8 +10,6 @@ db = SQLAlchemy(app)
 logging.basicConfig(level=logging.DEBUG)
 
 class Exercise(db.Model):
-    __tablename__ = 'personalbest'
-
     id = db.Column(db.Integer, primary_key=True)
     Exercise = db.Column(db.String(255), nullable=False)
     Sets = db.Column(db.Integer, nullable=False)
