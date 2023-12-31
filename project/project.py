@@ -14,6 +14,7 @@ class Exercise(db.Model):
     Exercise = db.Column(db.String(255), nullable=False)
     Sets = db.Column(db.Integer, nullable=False)
     Reps = db.Column(db.Integer, nullable=False)
+    Weight = db.Column(db.Float)  # Added Weight column
 
 @app.route('/')
 def index():
@@ -24,7 +25,7 @@ def index():
 def get_all_data():
     app.logger.info('Endpoint: /get_all_data')
     exercises = Exercise.query.all()
-    data = [{"id": exercise.id, "Exercise": exercise.Exercise, "Sets": exercise.Sets, "Reps": exercise.Reps} for exercise in exercises]
+    data = [{"id": exercise.id, "Exercise": exercise.Exercise, "Sets": exercise.Sets, "Reps": exercise.Reps, "Weight": exercise.Weight} for exercise in exercises]
     return jsonify(data)
 
 @app.route('/', methods=['POST'])
@@ -32,7 +33,7 @@ def create():
     app.logger.info('Endpoint: / (POST)')
     try:
         data = request.get_json()
-        new_exercise = Exercise(Exercise=data['Exercise'], Sets=data['Sets'], Reps=data['Reps'])
+        new_exercise = Exercise(Exercise=data['Exercise'], Sets=data['Sets'], Reps=data['Reps'], Weight=data.get('Weight'))
         db.session.add(new_exercise)
         db.session.commit()
         app.logger.info('Exercise created successfully')
@@ -60,11 +61,14 @@ def update(id):
         if 'Reps' in data:
             exercise.Reps = data['Reps']
 
+        if 'Weight' in data:
+            exercise.Weight = data['Weight']
+
         db.session.commit()
         app.logger.info('Exercise updated successfully')
         return jsonify({"message": "Exercise updated successfully"})
     except SQLAlchemyError as e:
-        db.session.rollback()  # Roll back the transaction on error
+        db.session.rollback()
         app.logger.error(f'Error updating exercise: {str(e)}')
         return jsonify({"error": f"Error updating exercise: {str(e)}"}), 500
     except Exception as e:
