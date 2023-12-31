@@ -163,11 +163,16 @@
 
         function doUpdate() {
             var exercise = getexerciseFromForm();
-            var exerciseId = exercise.id; // Fetch the exercise ID directly from the form
+
+            // Fetch the exercise ID from the database table (assuming it's in the first cell of the row)
+            var exerciseId = document.getElementById(exercise.id).cells[0].textContent;
+
             if (!exerciseId) {
                 console.error("Exercise ID is undefined. Unable to update.");
                 return;
             }
+
+            exercise.id = exerciseId; // Set the correct exercise ID
 
             $.ajax({
                 url: baseUrl + exerciseId,
