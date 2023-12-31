@@ -79,10 +79,18 @@
                 var rowElement = tableElement.insertRow(-1);
                 rowElement.setAttribute('id', exercise.id);
 
-                for (var key in exercise) {
-                    var cell = rowElement.insertCell();
-                    cell.innerHTML = exercise[key];
-                }
+                // Assign values to the correct columns
+                var idCell = rowElement.insertCell();
+                idCell.innerHTML = exercise.id;
+
+                var exerciseCell = rowElement.insertCell();
+                exerciseCell.innerHTML = exercise.Exercise;  // Corrected this line
+
+                var setsCell = rowElement.insertCell();
+                setsCell.innerHTML = exercise.Sets;
+
+                var repsCell = rowElement.insertCell();
+                repsCell.innerHTML = exercise.Reps;
 
                 var updateCell = rowElement.insertCell();
                 updateCell.innerHTML = '<button onclick="showUpdate(this)">Update</button>';
