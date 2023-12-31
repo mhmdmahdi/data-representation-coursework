@@ -34,10 +34,10 @@
     </h2>
 
     <div id='createUpdateForm' style="display: none">
+        ID <input type="text" name="id" readonly><br/>
         Exercise <input type="text" name="Exercise"><br/>
         Sets <input type="number" name="Sets"><br/>
         Reps <input type="number" name="Reps"><br/>
-        ID <input type="text" name="id" readonly><br/>
     
         <span id="createLabel" style="display:none">Create a exercise</span>
         <span id="updateLabel" style="display:none">update</span>         
@@ -163,28 +163,28 @@
 
         function doUpdate() {
             var exercise = getexerciseFromForm();
-            // Ensure that exercise.id is defined before making the PUT request
-            if (exercise.id) {
-                $.ajax({
-                    url: baseUrl + encodeURI(exercise.id),
-                    method: "PUT",
-                    data: JSON.stringify(exercise),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "JSON",
-                    success: function (result) {
-                        console.log(result);
-                        var rowElement = document.getElementById(exercise.id);
-                        setexerciseInRow(rowElement, exercise);
-                        clearForm();
-                        showViewAll();
-                    },
-                    error: function (xhr, status, error) {
-                        console.log("Error updating exercise: " + status + " msg:" + error);
-                    }
-                });
-            } else {
-                console.log("Exercise ID is undefined. Unable to update.");
+            if (!exercise.id) {
+                console.error("Exercise ID is undefined. Unable to update.");
+                return;
             }
+
+            $.ajax({
+                url: baseUrl + exercise.id,
+                method: "PUT",
+                data: JSON.stringify(exercise),
+                contentType: "application/json; charset=utf-8",
+                dataType: "JSON",
+                success: function (result) {
+                    console.log(result);
+                    var rowElement = document.getElementById(exercise.id);
+                    setexerciseInRow(rowElement, exercise);
+                    clearForm();
+                    showViewAll();
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error updating exercise: " + status + " msg:" + error);
+                }
+            });
         }
 
         function doDelete(element) {
