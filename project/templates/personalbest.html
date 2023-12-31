@@ -22,6 +22,7 @@
             <th>Exercise</th>
             <th>Sets</th>
             <th>Reps</th>
+            <th>Weight (kg)</th>
             <th>Update</th>
             <th>Delete</th>
         </tr>
@@ -38,6 +39,7 @@
         Exercise <input type="text" name="Exercise"><br/>
         Sets <input type="number" name="Sets"><br/>
         Reps <input type="number" name="Reps"><br/>
+        Weight (kg) <input type="number" name="Weight"><br />
     
         <span id="createLabel" style="display:none">Create a exercise</span>
         <span id="updateLabel" style="display:none">update</span>         
@@ -79,7 +81,6 @@
                 var rowElement = tableElement.insertRow(-1);
                 rowElement.setAttribute('id', exercise.id);
 
-                // Assign values to the correct columns
                 var idCell = rowElement.insertCell();
                 idCell.innerHTML = exercise.id;
 
@@ -92,13 +93,15 @@
                 var repsCell = rowElement.insertCell();
                 repsCell.innerHTML = exercise.Reps;
 
+                var weightCell = rowElement.insertCell(); 
+                weightCell.innerHTML = exercise.Weight; 
+
                 var updateCell = rowElement.insertCell();
                 updateCell.innerHTML = '<button onclick="showUpdate(this)">Update</button>';
 
                 var deleteCell = rowElement.insertCell();
                 deleteCell.innerHTML = '<button onclick="doDelete(this)">Delete</button>';
             }
-        }
 
         // Call the fetch function when the page loads
         window.onload = function() {
