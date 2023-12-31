@@ -223,12 +223,32 @@
 
         function clearForm() {
             var form = document.getElementById('createUpdateForm');
-            form.querySelector('input[name="id"]').value ="";
-            form.querySelector('input[name="Sets"]').value="";
-            form.querySelector('input[name="Exercise"]').value="";
-            form.querySelector('input[name="Reps"]').value="";
+            
+            if (form) {
+                var idInput = form.querySelector('input[name="id"]');
+                var setsInput = form.querySelector('input[name="Sets"]');
+                var exerciseInput = form.querySelector('input[name="Exercise"]');
+                var repsInput = form.querySelector('input[name="Reps"]');
 
-            console.log("clearForm")
+                if (idInput) {
+                    // idInput.disabled = false; // Remove this line if you decide to keep the ID input enabled
+                    idInput.value = "";
+                }
+
+                if (setsInput) {
+                    setsInput.value = "";
+                }
+
+                if (exerciseInput) {
+                    exerciseInput.value = "";
+                }
+
+                if (repsInput) {
+                    repsInput.value = "";
+                }
+            }
+
+            console.log("clearForm");
         }
 
         function getexerciseFromForm() {
