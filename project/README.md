@@ -1,3 +1,6 @@
+# Mohammed Mahdi (G00411358)
+# Data Representation
+
 # Personal Best Tracker
 
 ## Description
@@ -73,7 +76,7 @@ The application uses MySQL to store exercise data. The database structure is man
 
 ## Contact Information
 
-For questions or feedback, contact [Mohammed Mahdi](mailto:mhmd.mahdi1@gmail.com
+For questions or feedback, contact [Mohammed Mahdi](mailto:mhmd.mahdi1@gmail.com)
 
 ## Demo
 

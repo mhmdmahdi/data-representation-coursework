@@ -1,3 +1,7 @@
+# Mohammed Mahdi (G00411358)
+# Data Representation
+# Flask Application
+
 import logging
 from flask import Flask, jsonify, render_template, request
 from flask_sqlalchemy import SQLAlchemy
