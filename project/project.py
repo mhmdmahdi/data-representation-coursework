@@ -14,7 +14,7 @@ class Exercise(db.Model):
     Exercise = db.Column(db.String(255), nullable=False)
     Sets = db.Column(db.Integer, nullable=False)
     Reps = db.Column(db.Integer, nullable=False)
-    Weight = db.Column(db.Float)  # Added Weight column
+    Weight = db.Column(db.Float)  
 
 @app.route('/')
 def index():
